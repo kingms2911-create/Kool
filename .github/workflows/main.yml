@@ -1,3 +1,10 @@
+name: Run Automation
+
+on:
+  workflow_dispatch:  # Isse aap manual "Run workflow" button se chala sakoge
+  push:
+    branches:
+      - main
 name: browser-worker tests
 on:
   push:
