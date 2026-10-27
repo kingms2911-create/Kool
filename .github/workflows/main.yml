@@ -1,26 +1,27 @@
 name: Run Automation
 
 on:
-  workflow_dispatch:  # Isse aap manual "Run workflow" button se chala sakoge
+  workflow_dispatch:
   push:
     branches:
       - main
-name: browser-worker tests
-on:
-  push:
-  workflow_dispatch:
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    defaults:
-      run:
-        working-directory: browser-worker
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
-      - run: pip install -r requirements.txt
-      - run: playwright install --with-deps chromium
-      - run: python tests/test_all.py
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run script
+        run: |
+          python main.py
